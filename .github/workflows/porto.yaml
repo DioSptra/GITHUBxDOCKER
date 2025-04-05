@@ -28,7 +28,7 @@ jobs:
         ssh -i temp_key $DEPLOY_USER@$DEPLOY_SERVER << EOF
          if [ ! -d "/home/$DEPLOY_USER/devops-portofolio" ]; then
            cd ~/
-           git clone git@github.com:DioSptra/GITHUBxDOCKER.git devops-portofolio
+           git clone https://github.com/DioSptra/GITHUBxDOCKER.git devops-portofolio
           fi
   
          cd ~/devops-portofolio || exit 1
