@@ -42,10 +42,10 @@ jobs:
               bash install-docker.sh
           fi
 
-          docker stop $APP_NAME || true
-          docker rm $APP_NAME || true
+          sudo docker stop $APP_NAME || true
+          sudo docker rm $APP_NAME || true
 
-          docker build -t $APP_NAME .
+          sudo docker build -t $APP_NAME .
 
-          docker run -d --restart always --name $APP_NAME -p 80:3000 $APP_NAME
+          sudo docker run -d --restart always --name $APP_NAME -p 80:3000 $APP_NAME
         EOF

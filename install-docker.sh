@@ -33,6 +33,6 @@ sudo systemctl enable docker
 sudo systemctl start docker
 
 # Show Docker version
-docker --version
+sudo docker --version
 
 echo "Docker installation completed successfully."
