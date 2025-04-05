@@ -26,7 +26,7 @@ jobs:
         chmod 600 temp_key
 
         ssh -i temp_key $DEPLOY_USER@$DEPLOY_SERVER << EOF
-          cd /home/$DEPLOY_USER/app-folder || exit 1
+          cd /home/$DEPLOY_USER/devops-portofolio || exit 1
 
           git pull origin master
 
