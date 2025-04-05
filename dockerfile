@@ -10,6 +10,6 @@ COPY . .
 # Kalau pakai Vite build, bisa: npm run build
 # Tapi kalau jalanin server, biasanya npm start
 
-CMD ["npm", "run", "start"]
+CMD ["node", "serve.txt"]
 
 EXPOSE 3000
