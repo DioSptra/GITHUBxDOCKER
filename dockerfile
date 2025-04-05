@@ -8,8 +8,9 @@ RUN npm install
 COPY . .
 
 # Kalau pakai Vite build, bisa: npm run build
+RUN npm run build
 # Tapi kalau jalanin server, biasanya npm start
 
-CMD ["node", "serve.txt"]
+CMD ["node", "serve.js"]
 
 EXPOSE 3000
