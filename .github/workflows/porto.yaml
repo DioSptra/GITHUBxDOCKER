@@ -1,0 +1,46 @@
+name: CI/CD DockerxGithub
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Deploy to Server via SSH
+      env:
+        DEPLOY_SERVER: ${{ secrets.DEPLOY_SERVER_IP }}
+        DEPLOY_USER: ${{ secrets.DEPLOY_USER_UBUNTU }}
+        SSH_KEY: ${{ secrets.SSH_KEY_UBUNTU }}
+        APP_NAME: portfolio-app
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -t rsa $DEPLOY_SERVER >> ~/.ssh/known_hosts
+        echo "$SSH_KEY" | tr -d '\r' > temp_key
+        chmod 600 temp_key
+
+        ssh -i temp_key $DEPLOY_USER@$DEPLOY_SERVER << EOF
+          cd /home/$DEPLOY_USER/app-folder || exit 1
+
+          git pull origin master
+
+          # Run the install-docker.sh if Docker not installed
+          if ! command -v docker &> /dev/null
+          then
+              echo "Docker not found, installing..."
+              bash install-docker.sh
+          fi
+
+          docker stop $APP_NAME || true
+          docker rm $APP_NAME || true
+
+          docker build -t $APP_NAME .
+
+          docker run -d --restart always --name $APP_NAME -p 80:3000 $APP_NAME
+        EOF
