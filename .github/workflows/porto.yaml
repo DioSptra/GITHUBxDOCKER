@@ -27,11 +27,11 @@ jobs:
 
         ssh -i temp_key $DEPLOY_USER@$DEPLOY_SERVER << EOF
          if [ ! -d "/home/$DEPLOY_USER/devops-portofolio" ]; then
-           cd /home/$DEPLOY_USER
+           cd ~/
            git clone git@github.com:DioSptra/GITHUBxDOCKER.git devops-portofolio
           fi
   
-         cd /home/$DEPLOY_USER/devops-portofolio || exit 1
+         cd ~/devops-portofolio || exit 1
 
           git pull origin master
 
